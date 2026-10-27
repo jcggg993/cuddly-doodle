@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>应届生：考公还是直接就业？</title>
+  <style>
+    * {box-sizing: border-box;margin:0;padding:0;font-family:system-ui, -apple-system, sans-serif;}
+    body {background:#f7f8fa;color:#222;min-height:100vh;padding:24px 16px;}
+    .container {max-width:640px;margin:0 auto;background:#fff;border-radius:16px;padding:32px;box-shadow:0 4px 20px rgba(0,0,0,0.08);}
+    .title {font-size:24px;font-weight:600;text-align:center;margin-bottom:8px;}
+    .desc {text-align:center;color:#666;margin-bottom:32px;}
+    .page {display:none;}
+    .page.active {display:block;}
+    .q-title {font-size:18px;margin-bottom:20px;font-weight:500;}
+    .option {border:1px solid #e5e7eb;border-radius:12px;padding:14px 16px;margin-bottom:12px;cursor:pointer;transition:0.2s;}
+    .option:hover {border-color:#4080ff;background:#f0f6ff;}
+    .option.selected {border-color:#4080ff;background:#e8f1ff;}
+    .btn-wrap {display:flex;gap:12px;margin-top:32px;justify-content:space-between;}
+    button {padding:12px 24px;border-radius:10px;border:none;font-size:16px;cursor:pointer;}
+    #prev {background:#eee;color:#333;}
+    #next {background:#4080ff;color:#fff;}
+    #result .res-title {font-size:22px;font-weight:600;margin-bottom:16px;}
+    #result .res-text {line-height:1.7;color:#444;}
+    .progress {margin-bottom:24px;color:#777;text-align:right;}
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1 class="title">应届生：考公还是直接就业？</h1>
+  <p class="desc">根据你的真实选择，看看更适合哪条路</p>
+
+  <!-- 题目页面 -->
+  <div id="quiz-wrap">
+    <div class="progress" id="progress"></div>
+    <div id="pages">
+      <!-- 题目1 -->
+      <div class="page">
+        <div class="q-title">1. 你对收入的期待是？</div>
+        <div class="option" data-score="-2">希望起步薪资高，愿意拿绩效、提成</div>
+        <div class="option" data-score="-1">中等收入，涨薪看个人能力</div>
+        <div class="option" data-score="1">收入稳定、五险一金齐全，涨幅慢一点没关系</div>
+        <div class="option" data-score="2">优先稳定，薪资高低次要</div>
+      </div>
+      <!-- 题目2 -->
+      <div class="page">
+        <div class="q-title">2. 你能不能接受长期枯燥、重复的备考？</div>
+        <div class="option" data-score="2">完全可以，能沉下心刷题半年以上</div>
+        <div class="option" data-score="1">可以坚持2–3个月，但是压力会很大</div>
+        <div class="option" data-score="-1">很难长期看书，坐不住，容易倦怠</div>
+        <div class="option" data-score="-2">一长期备考就焦虑崩溃，完全不适合</div>
+      </div>
+      <!-- 题目3 -->
+      <div class="q-title">3. 你怎么看待风险？</div>
+        <div class="option" data-score="-2">愿意试错，接受跳槽、行业波动，不怕不确定性</div>
+        <div class="option" data-score="-1">可以接受一定风险，但是不想踩大坑</div>
+        <div class="option" data-score="1">尽量规避风险，喜欢稳定可预期的路线</div>
+        <div class="option" data-score="2">非常怕失业、裁员，稳定性是第一需求</div>
+      </div>
+      <!-- 题目4 -->
+      <div class="page">
+        <div class="q-title">4. 家庭对你的选择是什么态度？</div>
+        <div class="option" data-score="2">家里强烈支持考公，经济上可以兜底备考</div>
+        <div class="option" data-score="1">家里偏向考公，但也尊重我的选择</div>
+        <div class="option" data-score="-1">家里更希望我尽快工作赚钱</div>
+        <div class="option" data-score="-2">家里需要我尽快收入补贴，没有备考条件</div>
+      </div>
+      <!-- 题目5 -->
+      <div class="page">
+        <div class="q-title">5. 你更喜欢哪种工作模式？</div>
+        <div class="option" data-score="-2">有挑战、有成长、可以靠能力往上冲，喜欢变化</div>
+        <div class="option" data-score="-1">有目标、有项目节奏，不喜欢一成不变</div>
+        <div class="option" data-score="1">流程清晰、规则明确，不用经常面对变动</div>
+        <div class="option" data-score="2">作息规律、压力小、不用频繁内卷加班</div>
+      </div>
+      <!-- 题目6 -->
+      <div class="page">
+        <div class="q-title">6. 如果考公多次落榜，你能接受吗？</div>
+        <div class="option" data-score="2">落榜也能再战，心态不容易崩</div>
+        <div class="option" data-score="1">可以接受1次失利，第二次就很难坚持</div>
+        <div class="option" data-score="-1">落榜一次打击很大，不想再考</div>
+        <div class="option" data-score="-2">一次失败就会否定自己，无法接受</div>
+      </div>
+    </div>
+    <div class="btn-wrap">
+      <button id="prev">上一步</button>
+      <button id="next">下一步</button>
+    </div>
+  </div>
+
+  <!-- 结果页 -->
+  <div id="result" class="page">
+    <div class="res-title" id="res-title"></div>
+    <div class="res-text" id="res-text"></div>
+    <div style="margin-top:24px">
+      <button onclick="restart()">重新测评</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const pages = document.querySelectorAll('.page');
+  const quizWrap = document.getElementById('quiz-wrap');
+  const resultWrap = document.getElementById('result');
+  const progressEl = document.getElementById('progress');
+  const resTitle = document.getElementById('res-title');
+  const resText = document.getElementById('res-text');
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+
+  let current = 0;
+  let score = 0;
+  let answers = Array(pages.length - 1).fill(null);
+  const totalQ = pages.length - 1;
+
+  function render() {
+    pages.forEach((p, idx) => p.classList.remove('active'));
+    pages[current].classList.add('active');
+    progressEl.innerText = `${current+1}/${totalQ}`;
+    prevBtn.style.visibility = current === 0 ? 'hidden' : 'visible';
+    if(current >= totalQ) {
+      showResult();
+    }
+  }
+
+  // 点击选项
+  document.querySelectorAll('.option').forEach(opt=>{
+    opt.onclick = ()=>{
+      const pageIdx = current;
+      // 清除同页选中
+      opt.parentElement.querySelectorAll('.option').forEach(o=>o.classList.remove('selected'));
+      opt.classList.add('selected');
+      answers[pageIdx] = Number(opt.dataset.score);
+    }
+  })
+
+  nextBtn.onclick = ()=>{
+    if(answers[current] === null) {
+      alert("请选择一个答案");
+      return;
+    }
+    current++;
+    render();
+  }
+  prevBtn.onclick = ()=>{
+    current--;
+    render();
+  }
+
+  function showResult(){
+    quizWrap.style.display = 'none';
+    resultWrap.style.display = 'block';
+    score = answers.reduce((a,b)=>a+b,0);
+    if(score >= 6) {
+      resTitle.innerText = "✅ 结论：更适合优先考公";
+      resText.innerText = "你对稳定的需求很强，有足够耐心、抗压能力和家庭支持，备考对你来说可行性很高。建议把重心放在考公上，同时可以少量投递保底岗位，给自己留后路。";
+    } else if(score >= -3 && score <6) {
+      resTitle.innerText = "⚖️ 结论：两条路线都可行，建议两手准备";
+      resText.innerText = "你的特质没有明显偏向。可以一边投递企业秋招春招，一边抽空备考公考；拿到满意offer可以选择就业，备考进度好就冲考试，灵活选择。";
+    } else {
+      resTitle.innerText = "✅ 结论：更适合直接就业";
+      resText.innerText = "你风险接受度高、不适合长期枯燥备考，更加适合进入职场积累经验。优先抓住校招机会，早点进入行业成长，考公可以作为未来的备选，不要把全部时间押在考试上。";
+    }
+  }
+  function restart(){
+    current = 0;
+    score = 0;
+    answers = Array(totalQ).fill(null);
+    quizWrap.style.display = 'block';...
