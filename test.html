@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>毕业选择测试</title>
+  <style>
+    :root{
+      --bg1:#f5f7ff;
+      --bg2:#eefaf4;
+      --card:#ffffff;
+      --primary:#5c6cf3;
+      --primary-2:#7f8cff;
+      --accent:#1bc38b;
+      --text:#1d2433;
+      --muted:#69738b;
+      --border:#e8ebf5;
+      --shadow:0 18px 45px rgba(90,108,163,.15);
+      --study:#6a5cff;
+      --work:#ff8a5b;
+      --balance:#2ec5a3;
+    }
+
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      font-family: "PingFang SC", "Microsoft YaHei", Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(124, 92, 255, .10), transparent 30%),
+        radial-gradient(circle at bottom right, rgba(46, 197, 163, .10), transparent 35%),
+        linear-gradient(180deg, var(--bg1), var(--bg2));
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px 18px;
+    }
+
+    .container {
+      width: min(900px, 100%);
+      background: rgba(255,255,255,.7);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,.7);
+      box-shadow: var(--shadow);
+      border-radius: 28px;
+      overflow: hidden;
+    }
+
+    .topbar {
+      padding: 18px 28px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--muted);
+      font-size: 14px;
+      letter-spacing: .03em;
+    }
+
+    .brand {
+      font-weight: 700;
+      color: var(--primary);
+    }
+
+    .quiz-box {
+      padding: 24px 28px 30px;
+    }
+
+    .intro-screen {
+      text-align: center;
+      padding: 34px 18px 8px;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 8px 14px;
+      background: rgba(92,108,243,.09);
+      border: 1px solid rgba(92,108,243,.12);
+      color: var(--primary);
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 22px auto 14px;
+      font-size: clamp(28px, 4vw, 42px);
+      line-height: 1.2;
+      max-width: 700px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.8;
+      max-width: 650px;
+      margin: 0 auto 28px;
+    }
+
+    .start-btn, .next-btn, .restart-btn {
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--primary-2));
+      color: white;
+      padding: 16px 30px;
+      font-size: 17px;
+      font-weight: 700;
+      border-radius: 16px;
+      cursor: pointer;
+      transition: transform .18s ease, box-shadow .18s ease;
+      box-shadow: 0 14px 26px rgba(92,108,243,.24);
+    }
+
+    .start-btn:hover, .next-btn:hover, .restart-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .hidden { display: none !important; }
+
+    .question-screen {
+      padding: 10px 8px 12px;
+    }
+
+    .progress-wrap {
+      margin: 8px 0 26px;
+    }
+
+    .progress-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 12px;
+      border-radius: 999px;
+      background: #eef2fb;
+      overflow: hidden;
+      border: 1px solid var(--border);
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      border-radius: inherit;
+      transition: width .25s ease;
+    }
+
+    .question-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 28px 24px 18px;
+    }
+
+    .q-label {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .question {
+      font-size: clamp(26px, 2.5vw, 36px);
+      line-height: 1.5;
+      margin: 0 0 18px;
+      font-weight: 800;
+    }
+
+    .options {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .option {
+      width: 100%;
+      text-align: left;
+      background: #f9faff;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 18px 18px;
+      border-radius: 16px;
+      font-size: 17px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .18s ease;
+      position: relative;
+    }
+
+    .option:hover {
+      border-color: rgba(92,108,243,.35);
+      background: #f4f6ff;
+      transform: translateY(-1px);
+    }
+
+    .option.selected {
+      border-color: var(--primary);
+      background: rgba(92,108,243,.07);
+      box-shadow: inset 0 0 0 1px rgba(92,108,243,.18);
+    }
+
+    .option strong {
+      display: inline-block;
+      margin-right: 8px;
+      color: var(--primary);
+    }
+
+    .answer-actions {
+      margin-top: 22px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .next-btn {
+      min-width: 180px;
+    }
+
+    .result-screen {
+      padding: 30px 18px 20px;
+    }
+
+    .result-card {
+      background: linear-gradient(180deg, #ffffff, #fbfcff);
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: var(--shadow);
+    }
+
+    .result-icon {
+      font-size: 52px;
+      margin-bottom: 14px;
+    }
+
+    .result-title {
+      font-size: clamp(28px, 4vw, 38px);
+      font-weight: 900;
+      margin-bottom: 10px;
+    }
+
+    .result-description {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--muted);
+    }
+
+    .result-pills {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin: 22px auto 18px;
+      max-width: 700px;
+    }
+
+    .pill {
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 14px;
+      border: 1px solid transparent;
+    }
+
+    .pill.study { background: rgba(106,92,255,.08); color: var(--study); border-color: rgba(106,92,255,.12); }
+    .pill.work { background: rgba(255,138,91,.10); color: var(--work); border-color: rgba(255,138,91,.12); }
+    .pill.balance { background: rgba(46,197,163,.10); color: var(--balance); border-color: rgba(46,197,163,.12); }
+
+    .result-summary {
+      margin-top: 16px;
+      padding: 20px 18px;
+      border-radius: 18px;
+      background: #f8faff;
+      border: 1px solid var(--border);
+      font-size: 17px;
+      line-height: 1.9;
+      color: var(--text);
+      text-align: left;
+      max-width: 760px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .restart-btn {
+      margin-top: 22px;
+    }
+
+    @media (max-width: 640px) {
+      .quiz-box { padding: 18px 18px 24px; }
+      .question { font-size: 24px; }
+      .option { font-size: 16px; }
+      .topbar { padding: 14px 18px 0; font-size: 12px; }
+      .result-card { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="container">
+      <div class="topbar">
+        <div class="brand">FreshChoice</div>
+        <div>毕业选择测试</div>
+      </div>
+
+      <div class="quiz-box">
+        <section id="introScreen" class="intro-screen">
+          <div class="badge">职业选择测评</div>
+          <h1>应届毕业生：继续深造，还是尽快走进社会赚钱？</h1>
+          <p class="subtitle">
+            这不是“对错题”，而是帮助你更清楚地认识自己：
+            你更在意长期职业积累，还是更需要现实收入、经验和稳定感。
+          </p>
+          <button class="start-btn" id="startBtn">开始测试</button>
+        </section>
+
+        <section id="questionScreen" class="question-screen hidden">
+          <div class="progress-wrap">
+            <div class="progress-top">
+              <span>第 <strong id="currentStep">1</strong> / <span id="totalSteps">6</span> 题</span>
+              <span id="progressText">0%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+          </div>
+
+          <div class="question-card">
+            <div class="q-label">问卷题目</div>
+            <h2 class="question" id="questionText"></h2>
+            <div class="options" id="options"></div>
+
+            <div class="answer-actions">
+              <button class="next-btn" id="nextBtn" disabled>下一题</button>
+            </div>
+          </div>
+        </section>
+
+        <section id="resultScreen" class="result-screen hidden">
+          <div class="result-card">
+            <div class="result-icon" id="resultIcon">✨</div>
+            <div class="result-title" id="resultTitle">你的推荐路径</div>
+            <p class="result-description" id="resultDescription"></p>
+
+            <div class="result-pills" id="resultPills"></div>
+
+            <div class="result-summary" id="resultSummary"></div>
+
+            <button class="restart-btn" id="restartBtn">重新测试</button>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "你更看重未来的什么？",
+        options: [
+          { text: "长期专业能力和更高的职业壁垒", value: "study" },
+          { text: "尽快有稳定收入和独立生活能力", value: "work" },
+          { text: "先看环境，再决定走哪条路", value: "balance" }
+        ]
+      },
+      {
+        question: "如果现在有两种选择，你更愿意？",
+        options: [
+          { text: "继续深造，提升学历或专业实力", value: "study" },
+          { text: "直接进入职场，积累经验和薪资", value: "work" },
+          { text: "边工作边补足自己短板", value: "balance" }
+        ]
+      },
+      {
+        question: "面对现实压力，你最在意的是什么？",
+        options: [
+          { text: "我不想因为短期利益放弃长期价值", value: "study" },
+          { text: "我需要尽快减轻经济负担和家庭压力", value: "work" },
+          { text: "我希望平衡现实和未来，不能只选单一方向", value: "balance" }
+        ]
+      },
+      {
+        question: "你对职业发展更相信哪种路径？",
+        options: [
+          { text: "高质量学习能带来更强竞争力", value: "study" },
+          { text: "实际工作能最快验证自己并快速成长", value: "work" },
+          { text: "先进入市场，再根据情况调整方向", value: "balance" }
+        ]
+      },
+      {
+        question: "你现阶段最需要什么？",
+        options: [
+          { text: "更清晰的职业认知和能力积累", value: "study" },
+          { text: "真实工作经验和现金流", value: "work" },
+          { text: "一个既能赚钱又能提升自己的过渡方案", value: "balance" }
+        ]
+      },
+      {
+        question: "如果未来五年，你更希望自己是什么状态？",
+        options: [
+          { text: "在专业领域有更强的深度和竞争力", value: "study" },
+          { text: "能更快站稳脚跟，形成收入和社会经验", value: "work" },
+          { text: "既有经验，又能不断成长，不被困在一个平台上", value: "balance" }
+        ]
+      }
+    ];
+
+    let currentQuestionIndex = 0;
+    let selectedAnswers = [];
+    const score = { study: 0, work: 0, balance: 0 };
+
+    const introScreen = document.getElementById("introScreen");
+    const questionScreen = document.getElementById("questionScreen");
+    const resultScreen = document.getElementById("resultScreen");
+
+    const startBtn = document.getElementById("startBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const restartBtn = document.getElementById("restartBtn");
+
+    const questionText = document.getElementById("questionText");
+    const optionsContainer = document.getElementById("options");
+    const currentStep = document.getElementById("currentStep");
+    const totalSteps = document.getElementById("totalSteps");
+    const progressText = document.getElementById("progressText");
+    const progressFill = document.getElementById("progressFill");
+
+    const resultIcon = document.getElementById("resultIcon");
+    const resultTitle = document.getElementById("resultTitle");
+    const resultDescription = document.getElementById("resultDescription");
+    const resultPills = document.getElementById("resultPills");
+    const resultSummary = document.getElementById("resultSummary");
+
+    totalSteps.textContent = questions.length;
+
+    startBtn.addEventListener("click", () => {
+      introScreen.classList.add("hidden");
+      questionScreen.classList.remove("hidden");
+      renderQuestion();
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if (selectedAnswers[currentQuestionIndex]) {
+        const chosen = selectedAnswers[currentQuestionIndex];
+        score[chosen] += 1;
+
+        currentQuestionIndex += 1;
+
+        if (currentQuestionIndex < questions.length) {
+          renderQuestion();
+        } else {
+          showResult();
+        }
+      }
+    });
+
+    restartBtn.addEventListener("click", () => {
+      currentQuestionIndex = 0;
+      selectedAnswers = [];
+      Object.keys(score).forEach(key => score[key] = 0);
+
+      resultScreen.classList.add("hidden");
+      introScreen.classList.remove("hidden");
+    });
+
+    function renderQuestion() {
+      const q = questions[currentQuestionIndex];
+      questionText.textContent = q.question;
+      optionsContainer.innerHTML = "";
+
+      q.options.forEach((option, index) => {
+        const button = document.createElement("button");
+        button.className = "option";
+        if (selectedAnswers[currentQuestionIndex] === option.value) {
+          button.classList.add("selected");
+        }
+
+        button.innerHTML = `<strong>${String.fromCharCode(65 + index)}.</strong>${option.text}`;
+
+        button.addEventListener("click", () => {
+          selectedAnswers[currentQuestionIndex] = option.value;
+          renderQuestion();
+          nextBtn.disabled = false;
+        });
+
+        optionsContainer.appendChild(button);
+      });
+
+      currentStep.textContent = currentQuestionIndex + 1;
+      const percent = ((currentQuestionIndex) / questions.length) * 100;
+      progressFill.style.width = `${((currentQuestionIndex + 1) / questions.length) * 100}%`;
+      progressText.textContent = `${Math.round(((currentQuestionIndex + 1) / questions.length) * 100)}%`;
+
+      nextBtn.disabled = !selectedAnswers[currentQuestionIndex];
+      questionScreen.classList.remove("hidden");
+      resultScreen.classList.add("hidden");
+    }
+
+    function showResult() {
+      const sorted = Object.entries(score).sort((a, b) => b[1] - a[1]);
+      const top = sorted[0][0];
+      const second = sorted[1][0];
+
+      let result = {
+        type: "study",
+        title: "继续深造型",
+        icon: "🎓",
+        description: "你更在意长期能力提升与职业门槛，倾向于把教育和学习当作未来的关键资产。",
+        summary: "你的回答显示，你更关注长期价值、专业深度和未来的职业竞争力。对于应届毕业生来说，如果你已经有明确方向、目标较清晰，并且对专业领域有足够热情，继续深造是一个很合理的选择。它可以帮助你在更早的阶段建立强壁垒，减少后续职业焦虑。"
+      };
+
+      if (top === "work") {
+        result = {
+          type: "work",
+          title: "直接工作型",
+          icon: "💼",
+          description: "你更看重现实收入、社会经验和快速进入职场的成长机会，倾向于先通过工作建立自己的人生基础。",
+          summary: "你有明显的现实感和行动力，可能更在意‘早进入社会、尽快赚钱、尽快验证自己’。对于经济压力大、对社会经验有强烈渴望的人来说，先工作并积累真实经验，是一种非常务实的策略。你不是“逃避学习”，而是在用工作换取真实世界里的反馈和成长。"
+        };
+      } else if (top === "balance") {
+        result = {
+          type: "balance",
+          title: "兼顾过渡型",
+          icon: "🌱",
+          description: "你更希望把“学习”和“工作”结合起来，不愿完全二选一，而是寻找一个更平衡、适合现实的路径。",
+          summary: "你的价值观不是极端偏向于深造，也不是单纯追求赚钱，而是希望形成一个过渡式、灵活的成长方案。比如先工作积累经验，再利用空余时间提升能力，或者在职场中逐步筛选自己的方向。这种路径比较适合没有完全确定答案、但又不想停滞的人。"
+        };
+      }
+
+      resultTitle.textContent = result.title;
+      resultIcon.textContent = result.icon;
+      resultDescription.textContent = result.description;
+
+      const pills = [
+        { text: "继续深造", className: "study" },
+        { text: "直接工作", className: "work" },
+        { text: "平衡路线", className: "balance" }
+      ];
+
+      resultPills.innerHTML = "";
+      pills.forEach(pill => {
+        const div = document.createElement("div");
+        div.className = `pill ${pill.className}`;
+        div.textContent = pill.text;
+        resultPills.appendChild(div);
+      });
+
+      resultSummary.innerHTML = `
+        <strong>你的综合倾向：</strong> ${result.summary}<br><br>
+        <strong>从你的选择看：</strong>
+        - 继续深造类：${score.study} 分
+        - 直接工作类：${score.work} 分
+        - 平衡路线类：${score.balance} 分
+        <br><br>
+        <strong>最终判断：</strong>
+        ${result.title === "继续深造型" ? "如果你对自己未来方向有明确认知、愿意投入时间提升专业能力，那么继续深造很可能是更适合你的一条路。" :
+          result.title === "直接工作型" ? "如果你更重视现实压力和经验积累，尽快进入社会反而会让你更快找到自己的位置。" :
+          "如果你仍然在犹豫，不妨采用‘先工作后提升’的节奏，既不让现实拖住你，也不给未来失去机会。"}
+      `;
+
+      questionScreen.classList.add("hidden");
+      resultScreen.classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>
