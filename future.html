@@ -1,0 +1,625 @@
+<!doctype html>
+
+<html lang="zh-CN">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+
+<meta name="theme-color" content="#f7f5f0">
+
+<title>你现在最需要一份工作，还是一个重新选择的机会？</title>
+
+<meta name="description" content="一份关于求职、方向与当下状态的20题自我探索问卷。">
+
+<style>
+
+:root{--bg:#f7f5f0;--paper:#fffefa;--ink:#252923;--muted:#77796f;--line:#e8e4da;--green:#4f6d5b;--green2:#eaf0e9;--peach:#f1dfd4;--gold:#c4a46a;--shadow:0 18px 50px rgba(48,53,44,.07)}
+
+*{box-sizing:border-box}
+
+body{margin:0;background:radial-gradient(circle at 8% 0%,#f0e7dc 0,transparent 30%),var(--bg);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;color:var(--ink);line-height:1.65}
+
+button{font:inherit;cursor:pointer}
+
+button:focus-visible{outline:3px solid #b7c8b9;outline-offset:3px}
+
+.wrap{width:min(760px,100%);margin:auto;padding:22px 16px 48px}
+
+.top{display:flex;justify-content:space-between;align-items:center;margin:2px 2px 24px}
+
+.brand{font-size:13px;letter-spacing:.12em;font-weight:750;color:var(--green)}
+
+.pill{font-size:12px;color:var(--muted);border:1px solid var(--line);border-radius:99px;padding:5px 10px;background:#ffffff8a}
+
+.hero,.panel,.result-card{background:var(--paper);border:1px solid #ece8df;border-radius:24px;box-shadow:var(--shadow)}
+
+.hero{padding:clamp(24px,6vw,48px);position:relative;overflow:hidden}
+
+.eyebrow{color:var(--green);font-size:12px;letter-spacing:.14em;font-weight:800;text-transform:uppercase}
+
+.hero h1{font-size:clamp(30px,6vw,46px);line-height:1.25;letter-spacing:-.04em;margin:14px 0 16px;max-width:600px}
+
+.hero h1 em{font-style:normal;color:var(--green)}
+
+.lead{font-size:15px;color:#64675e;max-width:570px;margin:0 0 24px}
+
+.meta{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 28px}
+
+.meta span{font-size:12px;background:#f5f2eb;padding:7px 11px;border-radius:8px;color:#66695f}
+
+.btn{border:0;border-radius:12px;padding:13px 18px;font-weight:750;transition:transform .15s,background .15s}
+
+.btn:active{transform:scale(.98)}
+
+.primary{background:var(--green);color:white}
+
+.primary:hover{background:#3f594a}
+
+.secondary{background:#f1efe8;color:var(--ink);border:1px solid var(--line)}
+
+.full{width:100%}
+
+.note{font-size:12px;color:var(--muted);margin-top:15px}
+
+.decor{position:absolute;right:-25px;top:-35px;width:150px;height:150px;border-radius:50%;background:var(--green2);opacity:.8}
+
+.decor:after{content:"";position:absolute;inset:24px;border:1px solid #b7c8b9;border-radius:50%}
+
+.hidden{display:none!important}
+
+.panel{padding:clamp(20px,5vw,34px)}
+
+.qtop{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+
+.qnum{font-size:12px;font-weight:800;letter-spacing:.1em;color:var(--green)}
+
+.qgroup{font-size:12px;color:var(--muted)}
+
+.track{height:5px;border-radius:20px;background:#efede6;overflow:hidden;margin-bottom:28px}
+
+.bar{height:100%;width:0;background:var(--green);transition:width .25s}
+
+.question{font-size:clamp(21px,4.5vw,29px);line-height:1.45;letter-spacing:-.025em;margin:0 0 9px}
+
+.subq{font-size:13px;color:var(--muted);margin:0 0 22px}
+
+.options{display:grid;gap:10px}
+
+.option{width:100%;display:flex;align-items:flex-start;gap:12px;text-align:left;padding:14px;border:1px solid var(--line);background:#fffefa;border-radius:14px;color:var(--ink);line-height:1.55}
+
+.option:hover{border-color:#9eafa0;background:#f9fbf7}
+
+.option.selected{border-color:var(--green);background:var(--green2);box-shadow:inset 0 0 0 1px var(--green)}
+
+.letter{flex:0 0 27px;height:27px;border-radius:9px;background:#f0eee7;color:#65685f;display:grid;place-items:center;font-size:12px;font-weight:800}
+
+.selected .letter{background:var(--green);color:white}
+
+.option-text{font-size:14px;padding-top:2px}
+
+.nav{display:flex;gap:10px;margin-top:24px}
+
+.nav .btn{flex:1}
+
+.nav .btn:disabled{opacity:.4;cursor:not-allowed}
+
+.result-head{padding:30px;background:linear-gradient(135deg,#edf2e9,#f7f0e8);border-radius:18px;margin-bottom:18px}
+
+.result-label{font-size:12px;color:var(--green);font-weight:800;letter-spacing:.12em}
+
+.result-head h2{font-size:clamp(27px,5vw,38px);line-height:1.3;margin:9px 0}
+
+.result-head p{margin:0;color:#5f665d;font-size:14px}
+
+.section-title{font-size:17px;margin:25px 0 10px}
+
+.bodycopy{font-size:14px;color:#54584f}
+
+.insight{padding:15px;border-radius:14px;background:#f7f5ef;border:1px solid var(--line);margin:10px 0}
+
+.insight strong{display:block;font-size:14px;margin-bottom:5px}
+
+.insight p{margin:0;font-size:13px;color:#65685f}
+
+.steps{padding-left:20px;color:#54584f;font-size:14px}
+
+.steps li{padding:4px 0}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:15px 0}
+
+.stat{background:#f6f4ee;border-radius:12px;padding:12px 9px}
+
+.stat small{font-size:11px;color:var(--muted);display:block}
+
+.stat b{font-size:13px}
+
+.footer{font-size:11px;color:#85867d;margin-top:22px;border-top:1px solid var(--line);padding-top:14px}
+
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:22px}
+
+.actions .btn{font-size:13px}
+
+.toast{font-size:12px;color:var(--green);margin-top:10px;min-height:18px}
+
+@media(max-width:480px){
+
+.wrap{padding:14px 12px 32px}
+
+.top{margin-bottom:15px}
+
+.hero,.panel{border-radius:20px}
+
+.stats{grid-template-columns:repeat(2,1fr)}
+
+.actions{grid-template-columns:1fr}
+
+.decor{width:100px;height:100px;right:-30px;top:-25px}
+
+.hero h1{max-width:90%}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<main class="wrap">
+
+<header class="top">
+
+  <div class="brand">慢慢想清楚 · SELF EXPLORATION</div>
+
+  <div class="pill">职业与人生选择</div>
+
+</header>
+
+<section class="hero" id="intro">
+
+  <div class="decor"></div>
+
+  <div class="eyebrow">20 QUESTIONS · 5–8 MIN</div>
+
+  <h1>你现在最需要的，<br>是一份工作，还是一个<em>重新选择的机会</em>？</h1>
+
+  <p class="lead">当求职没有回音、未来迟迟没有答案时，我们很容易把所有问题都归结为“是不是我不够好”。这份问卷想陪你把现实压力、行动状态和真正的需要分开看一看。</p>
+
+  <div class="meta">
+
+    <span>20 道情境题</span>
+
+    <span>每题约 10–20 秒</span>
+
+    <span>没有标准答案</span>
+
+  </div>
+
+  <button class="btn primary" id="start">开始自我探索　↗</button>
+
+  <p class="note">不是考试，也不是给你贴标签。请按最近一个月真实的状态作答。</p>
+
+</section>
+
+<section class="panel hidden" id="quiz">
+
+  <div class="qtop">
+
+    <span class="qnum" id="qnum">QUESTION 01 / 20</span>
+
+    <span class="qgroup" id="qgroup">现实处境</span>
+
+  </div>
+
+  <div class="track"><div class="bar" id="bar"></div></div>
+
+  <h2 class="question" id="question"></h2>
+
+  <p class="subq">请选择最接近你真实反应的一项，不必选“看起来最好”的答案。</p>
+
+  <div class="options" id="options"></div>
+
+  <div class="nav">
+
+    <button class="btn secondary" id="prev">上一题</button>
+
+    <button class="btn primary" id="next" disabled>下一题</button>
+
+  </div>
+
+  <div class="note">你的作答仅在当前浏览器页面中计算，不会自动上传。</div>
+
+</section>
+
+<section class="panel hidden" id="result"></section>
+
+</main>
+
+<script>
+
+const qs=[
+
+{g:'现实处境',q:'1. 最近想到自己的工作或未来，你最常出现的感受是什么？',o:['我想尽快行动，先找到一份能开始积累的工作。','我不想把选择押在一条路上，想同时准备几个方案。','我知道不能一直这样，但还没弄清自己适合什么。','我已经有些疲惫，想到求职就容易紧张或逃避。']},
+
+{g:'现实处境',q:'2. 如果连续投递了很多简历，却很少收到回复，你会？',o:['继续调整简历和投递方向，争取尽快得到反馈。','一边投递，一边准备考试、证书或其他备选路径。','停下来复盘，看看是不是岗位方向和自己的优势不匹配。','会明显受打击，需要缓一缓才能重新开始。']},
+
+{g:'现实处境',q:'3. 你目前最迫切需要解决的现实问题是？',o:['收入和工作经验，希望生活尽快进入正轨。','稳定感，希望有主线也有备用选择。','方向感，希望知道自己愿意长期投入什么。','状态，希望先恢复精力和信心，再处理下一步。']},
+
+{g:'现实处境',q:'4. 当家人问“工作找得怎么样了”，你通常？',o:['会告诉他们目前进展，并继续推进具体计划。','会解释自己有几手准备，不想只等一个结果。','容易被问住，因为我自己也还没有清晰答案。','会感到压力或羞愧，甚至想回避这个话题。']},
+
+{g:'思考方式',q:'5. 看到同龄人已经就业、升职或考上编制，你最可能？',o:['提醒自己先做眼前能做的事，继续积累。','有点着急，但会把比较转化成多准备一条路。','开始思考自己是不是选错方向，需要重新评估。','容易觉得自己落后很多，短时间内很难振作。']},
+
+{g:'思考方式',q:'6. 对你来说，“一份好工作”最重要的是？',o:['能带来收入、经验和明确的成长机会。','兼顾稳定与选择空间，不至于只有一条退路。','符合兴趣、能力和价值观，不想只是为了工作而工作。','节奏和环境能让我承受，不想长期处于耗竭状态。']},
+
+{g:'思考方式',q:'7. 如果一份工作并不理想，但能积累经验，你会？',o:['只要条件基本可接受，我愿意先开始再调整。','可以尝试，但会同时保留更长期的计划。','想先判断它是否接近自己的方向，不想盲目消耗。','如果目前状态很差，我可能需要先评估自己能否承受。']},
+
+{g:'思考方式',q:'8. 你最害怕的不是哪件事？',o:['一直没有收入和经验，时间被白白耗掉。','把所有时间投入一条路，最后没有其他选择。','走上不适合自己的道路，几年后才发现。','继续逼迫自己，最后连行动的力气都没有。']},
+
+{g:'行动习惯',q:'9. 过去两周，你为改变现状做了什么？',o:['有持续投递、联系、面试或提升技能等具体行动。','有行动，也在准备备选方案，但时间分配不太稳定。','花了不少时间搜索和思考，实际尝试还不多。','行动断断续续，常常因为疲惫、焦虑或拖延中断。']},
+
+{g:'行动习惯',q:'10. 面对一个陌生岗位，你通常先做什么？',o:['了解要求后，先试着投递或联系招聘方。','评估它是否能成为备选，同时继续推进主线。','先研究岗位内容，判断自己是否真正感兴趣。','会担心自己做不好，准备很久才敢迈出一步。']},
+
+{g:'行动习惯',q:'11. 当计划连续几天没有执行，你会？',o:['缩小任务，重新排进日程，尽快恢复行动。','重新分配求职和备选计划的时间。','怀疑计划本身是否适合自己，想调整目标。','先责怪自己，之后更难开始。']},
+
+{g:'行动习惯',q:'12. 你对“先做起来再说”的看法是？',o:['很多经验只有做了才会得到，我愿意先试。','可以先做，但最好保留调整空间。','如果方向错了，做得越多可能越偏，所以要先想清楚。','道理我明白，但目前常常缺少启动的力气。']},
+
+{g:'内在需求',q:'13. 如果暂时不考虑别人怎么看你，你更希望得到？',o:['经济独立，以及靠行动逐步站稳脚跟。','更可控的生活，不让一次选择决定全部。','做自己认可的事情，逐渐建立清晰方向。','不用一直证明自己，能安心地恢复和生活。']},
+
+{g:'内在需求',q:'14. 你最容易被哪句话触动？',o:['先有一个起点，才有下一步。','不要把所有希望都放在同一个结果上。','选适合自己的路，比盲目赶路更重要。','你已经很努力了，也可以允许自己休息。']},
+
+{g:'内在需求',q:'15. 你最想避免未来三年发生什么？',o:['一直停留在原地，没有实际积累。','一次失利就失去所有选择。','为了迎合期待，走上一条自己并不想走的路。','长期焦虑和自责，生活被压力占满。']},
+
+{g:'内在需求',q:'16. 什么最能让你重新获得一点信心？',o:['完成一个具体目标，看到自己的行动有结果。','知道即使一条路不通，我也有其他安排。','发现自己擅长什么，并找到更匹配的方向。','得到理解、休息和可承受的小步计划。']},
+
+{g:'冲突与选择',q:'17. 如果给你三个月，你觉得最现实的安排是？',o:['集中求职，设定每周投递、复盘和提升目标。','主线与备选并行，并给每条路线分配固定时间。','先做职业探索和小规模尝试，再确定主攻方向。','先恢复日常节奏，再逐步增加求职任务。']},
+
+{g:'冲突与选择',q:'18. 如果家人希望你尽快稳定下来，但你还没想清楚，你会？',o:['先找一份可接受的工作，让自己有现实基础。','和家人沟通阶段计划，同时推进不止一个方案。','争取一些探索时间，用实际体验而不是空想来决定。','坦诚说明目前承受的压力，先把任务调整到可完成。']},
+
+{g:'冲突与选择',q:'19. 哪一种改变对你来说最有挑战？',o:['从想法走向实际行动，并持续推进。','接受无法同时兼顾所有目标，学会排优先级。','承认自己可能需要改变原先设想的道路。','停止用苛刻的标准要求自己，给恢复留空间。']},
+
+{g:'冲突与选择',q:'20. 做完这份问卷，你最希望带走什么？',o:['一份可以立即执行的求职行动清单。','一套主线与备选并行的现实计划。','更清楚的自我认识和职业探索方向。','一个不再只靠责怪自己推动生活的起点。']}
+
+];
+
+const types=[
+
+{
+
+title:'先行动，建立现实支点',
+
+tag:'行动起步型',
+
+summary:'你的回答更多指向“先获得真实的进展”。与其继续等待一个完全理想的答案，你可能更需要一个可承受、能积累经验的起点。',
+
+strength:'你愿意把注意力放在可执行的事情上。只要目标足够具体，这种倾向有机会帮助你逐步恢复掌控感。',
+
+risk:'需要留意的是，急于结束不确定性，可能让你忽略岗位是否基本合适、是否有成长空间。先开始不等于什么都接受。',
+
+plan:['列出你能接受的 3 类岗位，以及明确不能接受的条件。','把简历、投递、联系和面试准备拆成每周可完成的小任务。','每周复盘哪些渠道有回应、哪些岗位更匹配，而不是只统计投递数量。'],
+
+line:'你不需要一次找到最终答案。先建立一个能让自己继续往前走的支点。'
+
+},
+
+{
+
+title:'保留余地，设计双线计划',
+
+tag:'双线布局型',
+
+summary:'你的回答更多指向风险管理。你既想向前推进，也不愿把未来完全押在单一结果上。你需要的可能不是无限增加选项，而是让主线和备选真正有节奏。',
+
+strength:'你会考虑现实风险，也愿意为变化留出空间。适度的备选计划可以降低“只有成功或失败”的压力。',
+
+risk:'如果每条路都想抓住，时间可能被切得太碎，最后每条都没有足够投入。备选应该让你更安心，而不是让你更忙乱。',
+
+plan:['明确一个主线目标和最多一个备选方向。','给每条路线设定固定的每周时间，不要每天临时摇摆。','设定 3–4 周后的复盘节点，用实际反馈决定是否调整投入。'],
+
+line:'给自己留后路，不是因为你不够坚定，而是为了让每一步都更可持续。'
+
+},
+
+{
+
+title:'先探索，再做更匹配的选择',
+
+tag:'方向探索型',
+
+summary:'你的回答更多指向“我想弄清楚什么适合自己”。你可能并不缺少努力的意愿，而是希望避免把时间投入到一条自己并不认可的路上。',
+
+strength:'你愿意思考工作的意义、自己的兴趣与适配度。认真探索能减少盲目跟随他人节奏的可能。',
+
+risk:'探索如果一直停留在搜索、比较和想象中，就很难带来新信息。方向不一定靠想清楚才出现，也可能来自一次真实尝试。',
+
+plan:['挑选 2–3 个可能方向，分别了解真实工作内容与入门要求。','通过一份简历、一次访谈、一个小项目或一次实际申请来验证想法。','给探索设置期限，到期后根据体验和反馈做阶段性决定。'],
+
+line:'你不必在今天决定一辈子的方向，但可以开始收集让决定更可靠的信息。'
+
+},
+
+{
+
+title:'先稳住状态，再恢复行动',
+
+tag:'状态修复型',
+
+summary:'你的回答更多指向疲惫、压力或启动困难。此时，问题可能不只是“该选哪条路”，还包括你目前是否有足够的精力去应对持续的不确定性。',
+
+strength:'你能够察觉自己的承受边界。认真看待精力和状态，不代表懒惰，也不等于放弃未来。',
+
+risk:'如果把所有行动都推迟到“完全准备好”的那一天，焦虑可能一直没有机会被现实反馈打破。目标是把任务缩小到可承受，而不是要求自己立刻满血复活。',
+
+plan:['先恢复基本节奏：规律吃饭、睡眠、出门活动和有限的社交支持。','把求职任务缩到每天 15–30 分钟，例如只修改一段简历或看 2 个岗位。','如果持续数周明显影响睡眠、日常生活或基本功能，可以考虑寻求可信任的人或专业人士支持。'],
+
+line:'你可以先把步子放小。照顾状态不是偏离人生进度，而是在为下一步积蓄力量。'
+
+}
+
+];
+
+let idx=0;
+
+let answers=Array(qs.length).fill(null);
+
+const $=id=>document.getElementById(id);
+
+function show(id){
+
+  ['intro','quiz','result'].forEach(x=>$(x).classList.toggle('hidden',x!==id));
+
+  window.scrollTo({top:0,behavior:'smooth'});
+
+}
+
+function render(){
+
+  const q=qs[idx];
+
+  $('qnum').textContent=`QUESTION ${String(idx+1).padStart(2,'0')} / ${qs.length}`;
+
+  $('qgroup').textContent=q.g;
+
+  $('bar').style.width=`${(idx+1)/qs.length*100}%`;
+
+  $('question').textContent=q.q;
+
+  $('options').innerHTML='';
+
+  q.o.forEach((txt,i)=>{
+
+    const b=document.createElement('button');
+
+    b.className='option'+(answers[idx]===i?' selected':'');
+
+    b.innerHTML=`<span class="letter">${'ABCD'[i]}</span><span class="option-text"></span>`;
+
+    b.querySelector('.option-text').textContent=txt;
+
+    b.onclick=()=>{
+
+      answers[idx]=i;
+
+      render();
+
+    };
+
+    $('options').appendChild(b);
+
+  });
+
+  $('prev').disabled=idx===0;
+
+  $('next').textContent=idx===qs.length-1?'生成我的报告':'下一题';
+
+  $('next').disabled=answers[idx]===null;
+
+}
+
+function makeResult(){
+
+  const counts=[0,0,0,0];
+
+  answers.forEach(a=>counts[a]++);
+
+  const max=Math.max(...counts);
+
+  const winners=counts.map((v,i)=>v===max?i:-1).filter(i=>i>=0);
+
+  let type;
+
+  if(winners.length===1){
+
+    type=winners[0];
+
+  }else{
+
+    const recent=answers.slice(-4);
+
+    const recentCounts=[0,0,0,0];
+
+    recent.forEach(a=>recentCounts[a]++);
+
+    const bestRecent=Math.max(...winners.map(i=>recentCounts[i]));
+
+    const recentWinners=winners.filter(i=>recentCounts[i]===bestRecent);
+
+    type=recentWinners[0];
+
+  }
+
+  const t=types[type];
+
+  const percent=counts.map(c=>Math.round(c/20*100));
+
+  $('result').innerHTML=`
+
+    <div class="result-head">
+
+      <div class="result-label">YOUR REFLECTION REPORT · 01</div>
+
+      <h2>${t.title}</h2>
+
+      <p>${t.tag}　·　基于本次 20 道题的回答倾向</p>
+
+    </div>
+
+    <p class="bodycopy">${t.summary}</p>
+
+    <h3 class="section-title">你的回答分布</h3>
+
+    <div class="stats">
+
+      ${types.map((x,i)=>`
+
+        <div class="stat">
+
+          <small>${x.tag}</small>
+
+          <b>${counts[i]} / 20</b>
+
+          <div style="height:4px;background:#e5e3da;border-radius:8px;margin-top:8px">
+
+            <div style="width:${percent[i]}%;height:4px;background:#4f6d5b;border-radius:8px"></div>
+
+          </div>
+
+        </div>
+
+      `).join('')}
+
+    </div>
+
+    <p class="note">分布代表你在这份问卷中的回答倾向，不是能力评分，也不意味着你只能选择某一种人生路径。</p>
+
+    <h3 class="section-title">你可以发挥的优势</h3>
+
+    <div class="insight"><strong>值得保留的部分</strong><p>${t.strength}</p></div>
+
+    <h3 class="section-title">需要留意的盲点</h3>
+
+    <div class="insight"><strong>不是缺点，而是提醒</strong><p>${t.risk}</p></div>
+
+    <h3 class="section-title">接下来 7 天，可以先做这三件事</h3>
+
+    <ol class="steps">${t.plan.map(x=>`<li>${x}</li>`).join('')}</ol>
+
+    <div class="insight"><strong>留给你的一句话</strong><p>${t.line}</p></div>
+
+    <div class="actions">
+
+      <button class="btn primary" id="copy">复制结果摘要</button>
+
+      <button class="btn secondary" id="restart">重新测一次</button>
+
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <div class="footer">说明：本问卷用于自我反思与职业规划参考，不是心理诊断、职业能力测评或就业保证。结果由回答规则生成，不会替你决定是否考公、就业或转行。请结合实际经济条件、岗位信息与个人情况判断。</div>
+
+  `;
+
+  show('result');
+
+  $('copy').onclick=async()=>{
+
+    const text=`${t.title}（${t.tag}）
+
+${t.summary}
+
+优势：${t.strength}
+
+提醒：${t.risk}
+
+行动建议：
+
+${t.plan.map((s,i)=>`${i+1}. ${s}`).join('\n')}
+
+${t.line}`;
+
+    try{
+
+      await navigator.clipboard.writeText(text);
+
+      $('toast').textContent='已复制，可以粘贴保存或分享。';
+
+    }catch(e){
+
+      const ta=document.createElement('textarea');
+
+      ta.value=text;
+
+      document.body.appendChild(ta);
+
+      ta.select();
+
+      document.execCommand('copy');
+
+      ta.remove();
+
+      $('toast').textContent='已尝试复制结果摘要。';
+
+    }
+
+  };
+
+  $('restart').onclick=()=>{
+
+    idx=0;
+
+    answers=Array(qs.length).fill(null);
+
+    show('intro');
+
+  };
+
+}
+
+$('start').onclick=()=>{
+
+  idx=0;
+
+  show('quiz');
+
+  render();
+
+};
+
+$('prev').onclick=()=>{
+
+  if(idx>0){
+
+    idx--;
+
+    render();
+
+  }
+
+};
+
+$('next').onclick=()=>{
+
+  if(answers[idx]===null)return;
+
+  if(idx<qs.length-1){
+
+    idx++;
+
+    render();
+
+  }else{
+
+    makeResult();
+
+  }
+
+};
+
+</script>
+
+</body>
+
+</html>
